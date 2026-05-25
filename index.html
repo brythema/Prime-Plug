@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<title>Prime Plug | iPhone · Samsung · Laptops · Swap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ===== ROOT ===== */
+:root{
+  --bg:#05050C;--bg2:#0A0A18;--bg3:#0D0D1F;
+  --purple:#a855f7;--purple2:#c084fc;--purple3:rgba(168,85,247,0.18);
+  --gold:#C5A880;--gold2:#e0c898;
+  --green:#25D366;
+  --glass:rgba(12,12,28,0.6);--glass2:rgba(18,18,36,0.75);
+  --border:rgba(168,85,247,0.28);--border2:rgba(168,85,247,0.5);
+  --text:#eef2ff;--text2:#9ca3c8;--text3:rgba(238,242,255,0.4);
+  --r:24px;--r2:16px;--r3:50px;
+  --ease:cubic-bezier(0.22,0.61,0.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;cursor:none;-webkit-font-smoothing:antialiased;}
+
+/* ===== CURSOR ===== */
+.cursor{width:10px;height:10px;background:var(--purple);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width .18s,height .18s;box-shadow:0 0 14px var(--purple);}
+.cursor-ring{width:38px;height:38px;border:1.5px solid var(--purple2);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:width .22s,height .22s,border-color .22s;}
+
+/* ===== NAVBAR ===== */
+.navbar{position:fixed;top:0;left:0;width:100%;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:76px;background:rgba(5,5,12,0.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.nav-logo{display:flex;align-items:center;gap:8px;font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;background:linear-gradient(135deg,#fff,var(--purple));-webkit-background-clip:text;background-clip:text;color:transparent;text-decoration:none;}
+.nav-links{display:flex;gap:36px;align-items:center;}
+.nav-links a{font-size:0.68rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);text-decoration:none;transition:.3s;}
+.nav-links a:hover{color:var(--purple2);}
+.nav-cta{background:var(--purple)!important;color:#fff!important;padding:9px 20px;border-radius:var(--r3);}
+.nav-wa{background:var(--green)!important;color:#050512!important;padding:9px 20px;border-radius:var(--r3);font-weight:700!important;}
+.ham{display:none;flex-direction:column;gap:6px;background:none;border:none;cursor:pointer;}
+.ham span{width:24px;height:2px;background:white;transition:.3s;display:block;}
+.mob-nav{display:none;position:fixed;top:76px;left:0;width:100%;background:rgba(5,5,12,0.98);backdrop-filter:blur(20px);flex-direction:column;z-index:999;padding:24px 5%;}
+.mob-nav a{padding:14px 0;color:#ddd;text-decoration:none;border-bottom:1px solid rgba(168,85,247,0.12);font-size:.9rem;}
+.mob-nav.open{display:flex;}
+
+/* ===== HERO ===== */
+.hero{min-height:100vh;position:relative;display:grid;grid-template-columns:1fr 1fr;padding-top:76px;background:url('https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=1800&fm=webp&q=85') no-repeat center/cover;background-attachment:fixed;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(5,5,12,.92) 0%,rgba(15,8,40,.82) 100%);backdrop-filter:blur(2px);z-index:0;}
+.hero-left,.hero-right{position:relative;z-index:2;}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:0 8%;}
+.hero-badge{font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:4px;color:var(--purple2);margin-bottom:20px;}
+.hero-left h1{font-family:'Syne',sans-serif;font-size:clamp(2.8rem,5.5vw,5rem);font-weight:800;line-height:1.06;letter-spacing:-1px;margin-bottom:22px;}
+.hero-left h1 em{font-style:normal;background:linear-gradient(135deg,var(--purple2),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.hero-desc{color:#b0bcd8;max-width:440px;margin-bottom:36px;line-height:1.7;font-size:.92rem;}
+.btn-group{display:flex;gap:16px;flex-wrap:wrap;}
+.btn-primary{background:white;color:#0c0c1a;padding:13px 30px;border-radius:var(--r3);font-weight:700;transition:.3s;border:none;cursor:pointer;font-size:.88rem;}
+.btn-primary:hover{background:var(--purple);color:white;box-shadow:0 0 22px rgba(168,85,247,.55);}
+.btn-outline{border:1.5px solid var(--purple);background:transparent;padding:13px 30px;border-radius:var(--r3);color:var(--purple2);font-weight:600;cursor:pointer;transition:.3s;font-size:.88rem;}
+.btn-outline:hover{background:rgba(168,85,247,.12);}
+.hero-right{display:flex;align-items:center;justify-content:center;}
+.glass-stats{background:rgba(12,12,32,.65);backdrop-filter:blur(18px);border:1px solid var(--border2);border-radius:40px;padding:40px 32px;width:82%;max-width:310px;}
+.stat-item{margin:26px 0;}
+.stat-num{font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:800;background:linear-gradient(135deg,#fff,var(--purple));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.stat-sub{font-size:.78rem;color:var(--text2);margin-top:3px;}
+/* Floating device icons on hero */
+.hero-device-float{position:absolute;z-index:1;opacity:.12;font-size:8rem;user-select:none;pointer-events:none;animation:floatDevice 8s ease-in-out infinite;}
+.hero-device-float:nth-child(1){bottom:15%;right:8%;animation-delay:0s;}
+.hero-device-float:nth-child(2){top:20%;right:20%;font-size:5rem;animation-delay:3s;}
+@keyframes floatDevice{0%,100%{transform:translateY(0) rotate(-5deg);}50%{transform:translateY(-20px) rotate(5deg);}}
+
+/* ===== MARQUEE ===== */
+.marquee-wrap{background:rgba(0,0,0,.72);backdrop-filter:blur(8px);border-top:1px solid var(--purple);border-bottom:1px solid var(--purple);padding:14px 0;overflow:hidden;}
+.marquee-track{display:inline-flex;animation:marquee 32s linear infinite;gap:36px;white-space:nowrap;}
+.marquee-track span{font-family:'Space Mono',monospace;letter-spacing:1.5px;color:#d9c9ff;font-size:.78rem;}
+@keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+/* ===== SECTION BASE ===== */
+.section-pad{padding:100px 5%;}
+.section-header{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;margin-bottom:56px;border-bottom:1px solid var(--border);padding-bottom:20px;}
+.section-title{font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,2.9rem);font-weight:800;letter-spacing:-1px;}
+.section-title span{color:var(--purple);}
+.section-hint{font-size:.72rem;color:var(--text2);}
+
+/* ===== SERVICE ROWS (expandable) ===== */
+.service-row{display:grid;grid-template-columns:64px 1fr auto auto;align-items:center;gap:22px;padding:26px 0;border-bottom:1px solid rgba(255,255,255,.07);cursor:pointer;transition:.22s;}
+.service-row:hover{background:rgba(168,85,247,.04);padding-left:12px;border-radius:var(--r2);}
+.service-num{font-family:'Space Mono',monospace;color:var(--purple);font-size:.78rem;}
+.service-name{font-family:'Syne',sans-serif;font-size:1.65rem;font-weight:700;letter-spacing:-.5px;}
+.service-sub{font-size:.78rem;color:var(--text2);margin-top:3px;}
+.service-tag{font-size:.65rem;padding:5px 14px;border:1px solid var(--border2);border-radius:var(--r3);white-space:nowrap;color:var(--purple2);}
+.service-arrow{font-size:1.5rem;transition:.3s;color:var(--purple);}
+.service-details{grid-column:1/-1;max-height:0;overflow:hidden;transition:max-height .6s cubic-bezier(.22,.61,.36,1);}
+.service-row.open .service-details{max-height:2400px;}
+.service-row.open .service-arrow{transform:rotate(90deg);}
+.service-row.open{background:rgba(168,85,247,.04);border-radius:var(--r2);padding-left:12px;}
+
+/* ===== DEVICE SHOWCASE CARD ===== */
+.showcase-card{background:linear-gradient(145deg,rgba(22,18,52,.85),rgba(12,12,30,.95));backdrop-filter:blur(14px);border:1px solid var(--border);border-radius:40px;padding:28px;display:flex;flex-wrap:wrap;gap:28px;margin:20px 0 16px;}
+.device-visual{flex:0 0 auto;width:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,.35);border-radius:32px;padding:20px 12px;}
+.device-visual img{width:100%;height:180px;object-fit:contain;filter:drop-shadow(0 10px 24px rgba(168,85,247,.45));}
+.device-visual-label{margin-top:10px;font-weight:700;font-size:.82rem;color:var(--purple2);}
+.model-grid{flex:1;display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:14px;}
+.model-category{background:rgba(255,255,255,.03);border:1px solid rgba(168,85,247,.1);border-radius:22px;padding:14px 16px;transition:.25s;}
+.model-category:hover{border-color:var(--border);background:rgba(168,85,247,.06);}
+.model-category h4{font-size:.92rem;font-weight:700;color:var(--purple2);margin-bottom:10px;}
+.model-list{display:flex;flex-direction:column;gap:6px;}
+.model-item{font-size:.8rem;color:#e2e8ff;display:flex;align-items:center;gap:7px;padding:3px 0;cursor:pointer;transition:.2s;border-radius:6px;}
+.model-item:hover{color:var(--purple2);transform:translateX(4px);}
+.model-item::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--purple);flex-shrink:0;}
+
+/* ===== LAPTOP GRID ===== */
+.laptop-brand-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin:20px 0;}
+.laptop-brand-card{background:rgba(255,255,255,.028);border:1px solid rgba(168,85,247,.14);border-radius:22px;padding:20px;cursor:pointer;transition:.3s;position:relative;overflow:hidden;}
+.laptop-brand-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(168,85,247,.06),transparent);opacity:0;transition:.3s;}
+.laptop-brand-card:hover{border-color:var(--border2);transform:translateY(-4px);box-shadow:0 14px 40px rgba(168,85,247,.18);}
+.laptop-brand-card:hover::before{opacity:1;}
+.lbc-logo{font-size:2rem;margin-bottom:10px;}
+.lbc-brand{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:8px;}
+.lbc-models{display:flex;flex-direction:column;gap:4px;}
+.lbc-model{font-size:.72rem;color:var(--text2);display:flex;align-items:center;gap:6px;}
+.lbc-model::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--purple);flex-shrink:0;}
+.lbc-cta{margin-top:14px;padding:8px 14px;background:rgba(168,85,247,.1);border:1px solid var(--border);border-radius:var(--r3);font-size:.62rem;font-weight:600;color:var(--purple2);text-align:center;transition:.25s;display:block;text-decoration:none;}
+.lbc-cta:hover{background:var(--purple);color:white;}
+
+/* ===== SWAP SECTION ===== */
+.swap-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:16px;}
+.swap-card{background:var(--glass2);backdrop-filter:blur(14px);border:1px solid var(--border);border-radius:32px;padding:32px;position:relative;overflow:hidden;transition:.35s;}
+.swap-card::after{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(168,85,247,.18),transparent 70%);pointer-events:none;}
+.swap-card:hover{border-color:var(--border2);box-shadow:0 18px 50px rgba(168,85,247,.2);}
+.swap-icon{font-size:2.8rem;margin-bottom:16px;}
+.swap-title{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;margin-bottom:8px;}
+.swap-sub{font-size:.82rem;color:var(--text2);line-height:1.65;margin-bottom:22px;}
+.swap-steps{list-style:none;margin-bottom:24px;}
+.swap-steps li{display:flex;align-items:flex-start;gap:12px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.82rem;color:#c8d0ec;}
+.swap-steps li:last-child{border:none;}
+.swap-step-n{width:22px;height:22px;border-radius:50%;background:rgba(168,85,247,.15);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:.55rem;color:var(--purple2);flex-shrink:0;}
+.swap-chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px;}
+.swap-chip{padding:8px 16px;border-radius:var(--r3);background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.25);font-size:.7rem;font-weight:600;color:var(--purple2);cursor:pointer;transition:.25s;}
+.swap-chip:hover{background:var(--purple);color:white;transform:translateY(-2px);}
+
+/* ===== WHATSAPP BUTTON ===== */
+.wa-btn{display:inline-flex;align-items:center;gap:10px;background:var(--green);padding:13px 26px;border-radius:var(--r3);font-weight:700;color:#050512;text-decoration:none;transition:.25s;font-size:.85rem;border:none;cursor:pointer;}
+.wa-btn:hover{transform:scale(1.03);box-shadow:0 0 18px rgba(37,211,102,.45);background:#20b859;}
+.wa-btn.wa-btn-outline{background:transparent;border:1.5px solid var(--green);color:var(--green);}
+.wa-btn.wa-btn-outline:hover{background:rgba(37,211,102,.12);transform:scale(1.02);box-shadow:none;}
+.wa-block{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;}
+
+/* ===== CHIPS ===== */
+.chip-row{display:flex;flex-wrap:wrap;gap:12px;margin:18px 0;}
+.chip{background:rgba(168,85,247,.1);padding:11px 22px;border-radius:var(--r3);font-weight:500;transition:.22s;border:1px solid transparent;cursor:pointer;font-size:.82rem;}
+.chip:hover{background:var(--purple);color:white;border-color:white;transform:translateY(-2px);}
+
+/* ===== ABOUT ===== */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;}
+.about-card{background:rgba(18,18,36,.6);border-radius:28px;padding:26px;border:1px solid rgba(168,85,247,.18);transition:.3s;}
+.about-card:hover{border-color:var(--border);transform:translateY(-3px);}
+.about-icon{font-size:2rem;margin-bottom:12px;}
+.about-stat{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--purple2);margin-bottom:6px;}
+.about-card p{font-size:.82rem;color:var(--text2);line-height:1.65;}
+.about-cards-hidden{max-height:0;overflow:hidden;transition:max-height .6s var(--ease);}
+.about-cards-hidden.expanded{max-height:500px;}
+.about-read-more{background:none;border:1px solid var(--purple);padding:10px 22px;border-radius:var(--r3);margin-top:16px;cursor:pointer;color:var(--purple2);font-size:.8rem;transition:.25s;}
+.about-read-more:hover{background:var(--purple);color:white;}
+
+/* ===== CONTACT ===== */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:52px;}
+.form-field{margin-bottom:26px;}
+.form-field label{display:block;font-size:.68rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);margin-bottom:9px;}
+.form-field input,.form-field select,.form-field textarea{width:100%;background:transparent;border:none;border-bottom:1.5px solid rgba(168,85,247,.3);padding:11px 0;color:white;outline:none;font-family:'Inter',sans-serif;font-size:.9rem;transition:.25s;}
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus{border-bottom-color:var(--purple2);}
+.form-field select option{background:#0a0a18;color:white;}
+.form-submit{background:var(--purple);padding:13px 32px;border-radius:var(--r3);border:none;font-weight:700;cursor:pointer;color:white;font-size:.9rem;transition:.25s;}
+.form-submit:hover{box-shadow:0 0 20px rgba(168,85,247,.4);transform:translateY(-1px);}
+.success-msg{display:none;margin-top:18px;background:rgba(18,18,36,.8);padding:16px;border-left:4px solid var(--purple);}
+.info-block{margin-bottom:28px;}
+.info-block .label{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:3px;color:var(--text3);margin-bottom:6px;}
+.info-block a{color:white;text-decoration:none;font-size:1.1rem;font-weight:600;}
+.info-block a:hover{color:var(--purple2);}
+
+/* ===== FOOTER ===== */
+.footer-split{display:flex;flex-wrap:wrap;border-radius:22px;overflow:hidden;margin-top:40px;}
+.footer-email-block{background:white;color:#050512;padding:28px;flex:2;display:flex;align-items:center;gap:18px;}
+.footer-tiktok-block{background:#d97706;color:#050512;padding:28px;flex:1;display:flex;align-items:center;gap:12px;}
+.footer-copy{text-align:center;margin-top:36px;font-size:.62rem;color:#5b6280;}
+
+/* ===== PERMANENT WA FLOAT ===== */
+.wa-float{position:fixed;bottom:26px;left:26px;z-index:700;display:flex;align-items:center;gap:10px;background:var(--green);color:#050512;padding:12px 20px;border-radius:var(--r3);box-shadow:0 8px 30px rgba(37,211,102,.32),0 0 0 4px rgba(37,211,102,.1);font-weight:700;text-decoration:none;font-size:.72rem;transition:.25s;animation:waPulse 3.5s ease-in-out infinite;}
+.wa-float:hover{transform:scale(1.05);box-shadow:0 12px 40px rgba(37,211,102,.44);}
+.wa-float svg{width:18px;height:18px;flex-shrink:0;}
+@keyframes waPulse{0%,100%{box-shadow:0 8px 30px rgba(37,211,102,.32),0 0 0 4px rgba(37,211,102,.1);}50%{box-shadow:0 8px 30px rgba(37,211,102,.48),0 0 0 8px rgba(37,211,102,.06);}}
+
+/* ===== DEVICE IMG (Unsplash WebP) wrapper ===== */
+.device-img-wrap{width:100%;height:180px;border-radius:22px;overflow:hidden;position:relative;margin-bottom:12px;}
+.device-img-wrap img{width:100%;height:100%;object-fit:cover;filter:brightness(.85) saturate(1.2);transition:transform .5s;}
+.device-img-wrap:hover img{transform:scale(1.06);}
+.device-img-glass{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,12,.05) 0%,rgba(5,5,12,.55) 100%);}
+
+/* ===== FADE UP ===== */
+.fade-up{opacity:0;transform:translateY(22px);transition:.65s var(--ease);}
+.fade-up.reveal{opacity:1;transform:none;}
+
+/* ===== SCROLL MARGIN — prevent fixed nav overlap ===== */
+#iphone,#samsung,#laptops,#phone-swap,#laptop-swap,#about,#contact,#services{
+  scroll-margin-top:84px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;background-attachment:scroll;}
+  .hero-right{padding:40px 8% 60px;}
+  .ham{display:flex;}
+  .nav-links{display:none;}
+  .swap-grid{grid-template-columns:1fr;}
+  .about-grid,.contact-grid{grid-template-columns:1fr;}
+  .service-row{grid-template-columns:50px 1fr auto;}
+  .service-tag{display:none;}
+  .showcase-card{flex-direction:column;}
+  .device-visual{width:100%;height:auto;flex-direction:row;gap:16px;}
+}
+@media(max-width:560px){
+  .model-grid{grid-template-columns:1fr 1fr;}
+  .laptop-brand-grid{grid-template-columns:1fr 1fr;}
+}
+/* ===== TOUCH DEVICES — disable custom cursor ===== */
+@media(pointer:coarse){
+  body{cursor:auto;}
+  .cursor,.cursor-ring{display:none;}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- PERMANENT WA FLOAT -->
+<a class="wa-float" href="https://wa.me/2347042776167?text=Hello%20Prime%20Plug!%20I%20want%20to%20browse%20your%20collection." target="_blank" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  Chat on WhatsApp
+</a>
+
+<!-- NAVBAR -->
+<header class="navbar">
+  <a class="nav-logo" href="#">
+    <svg width="26" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+    PRIME PLUG
+  </a>
+  <nav class="nav-links">
+    <a href="#iphone">iPhone</a>
+    <a href="#samsung">Samsung</a>
+    <a href="#laptops">Laptops</a>
+    <a href="#phone-swap">Phone Swap</a>
+    <a href="#laptop-swap">Laptop Swap</a>
+    <a href="https://wa.me/2347042776167" target="_blank" class="nav-cta nav-wa">WhatsApp Us</a>
+  </nav>
+  <button class="ham" id="hamBtn"><span></span><span></span><span></span></button>
+</header>
+<div class="mob-nav" id="mobNav">
+  <a href="#iphone" onclick="closeMob()">iPhone Collection</a>
+  <a href="#samsung" onclick="closeMob()">Samsung Phones</a>
+  <a href="#laptops" onclick="closeMob()">Laptops</a>
+  <a href="#phone-swap" onclick="closeMob()">Phone Swap</a>
+  <a href="#laptop-swap" onclick="closeMob()">Laptop Swap</a>
+  <a href="https://wa.me/2347042776167" target="_blank">💬 WhatsApp Us</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <!-- Floating device emojis -->
+  <div class="hero-device-float" style="bottom:18%;right:6%;">📱</div>
+  <div class="hero-device-float" style="top:22%;right:22%;font-size:5rem;">💻</div>
+  <div class="hero-left">
+    <div class="hero-badge">✦ PREMIUM TECH · ABUJA · NIGERIA ✦</div>
+    <h1>Your next <em>phone</em> or<br>laptop starts here</h1>
+    <p class="hero-desc">Prime Plug delivers premium iPhones, Samsung flagships, and top-tier laptops — with fast swap deals and nationwide delivery. All on WhatsApp, all effortless.</p>
+    <div class="btn-group">
+      <button class="btn-primary" onclick="location.href='#iphone'">Browse iPhones →</button>
+      <button class="btn-outline" onclick="location.href='#phone-swap'">Swap Deals ↗</button>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="glass-stats">
+      <div class="stat-item"><div class="stat-num">iPhone 17</div><div class="stat-sub">Series · All models available</div></div>
+      <div class="stat-item"><div class="stat-num">Samsung S25</div><div class="stat-sub">Ultra · Plus · Standard</div></div>
+      <div class="stat-item"><div class="stat-num">Swap Deal</div><div class="stat-sub">Phones & laptops accepted</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>iPhone 17 Pro Max</span><span>✦</span><span>Samsung Galaxy S25 Ultra</span><span>✦</span><span>MacBook Pro M4</span><span>✦</span>
+    <span>iPhone 16 Pro</span><span>✦</span><span>Dell XPS 15</span><span>✦</span><span>iPhone 12 · 13 · 14 · 15</span><span>✦</span>
+    <span>HP Spectre x360</span><span>✦</span><span>Lenovo ThinkPad X1</span><span>✦</span><span>Phone Swap Available</span><span>✦</span>
+    <span>Samsung A55 · A35</span><span>✦</span><span>Laptop Swap Available</span><span>✦</span>
+    <!-- Duplicate for seamless loop -->
+    <span>iPhone 17 Pro Max</span><span>✦</span><span>Samsung Galaxy S25 Ultra</span><span>✦</span><span>MacBook Pro M4</span><span>✦</span>
+    <span>iPhone 16 Pro</span><span>✦</span><span>Dell XPS 15</span><span>✦</span><span>iPhone 12 · 13 · 14 · 15</span><span>✦</span>
+    <span>HP Spectre x360</span><span>✦</span><span>Lenovo ThinkPad X1</span><span>✦</span><span>Phone Swap Available</span><span>✦</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SERVICES
+     ══════════════════════════════════════════ -->
+<section class="section-pad" id="services">
+  <div class="section-header">
+    <div><div class="section-title"><span>Click.</span> Explore. Buy.</div></div>
+    <div class="section-hint">Tap any category to expand →</div>
+  </div>
+
+  <!-- ▶ 01 — iPHONE COLLECTION (Open by default) -->
+  <div class="service-row open fade-up" id="iphone" onclick="toggleRow(this)">
+    <span class="service-num">01</span>
+    <div>
+      <div class="service-name">iPhone Collection</div>
+      <div class="service-sub">iPhone 12 through 17 — all models, all storage</div>
+    </div>
+    <span class="service-tag">From ₦350k</span>
+    <span class="service-arrow">→</span>
+    <div class="service-details">
+      <div class="showcase-card">
+        <!-- Visual -->
+        <div class="device-visual">
+          <div class="device-img-wrap">
+            <img src="https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=400&fm=webp&q=85" alt="iPhone" loading="lazy" onerror="this.style.display='none'">
+            <div class="device-img-glass"></div>
+          </div>
+          <div class="device-visual-label">Apple iPhone</div>
+        </div>
+        <!-- Models -->
+        <div class="model-grid">
+          <div class="model-category">
+            <h4>iPhone 17 Series</h4>
+            <div class="model-list">
+              <div class="model-item" onclick="event.stopPropagation();waOrder('iPhone 17')">iPhone 17</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('iPhone 17 Air')">iPhone 17 Air</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('iPhone 17 Pro')">iPhone 17 Pro</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('iPhone 17 Pro Max')">iPhone 17 Pro Max</div>
+            </div>
+          </div>
+          <div class="model-category">
+            <h4>iPhone 16 Series</h4>
+            <div class="model-list">
+              <div class="model-item" onclick="event.stopPropagation();waOrder('iPhone 16')">iPhone 16</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('iPhone 16 Plus')">iPhone 16 Plus</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('iPhone 16 Pro')">iPhone 16 Pro</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('iPhone 16 Pro Max')">iPhone 16 Pro Max</div>
+            </div>
+          </div>
+          <div class="model-category">
+            <h4>iPhone 15 Series</h4>
+            <div class="model-list">
+              <div class="model-item" onclick="event.stopPropagation();waOrder('iPhone 15')">iPhone 15</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('iPhone 15 Plus')">iPhone 15 Plus</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('iPhone 15 Pro')">iPhone 15 Pro</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('iPhone 15 Pro Max')">iPhone 15 Pro Max</div>
+            </div>
+          </div>
+          <div class="model-category">
+            <h4>iPhone 14 Series</h4>
+            <div class="model-list">
+              <div class="model-item" onclick="event.stopPropagation();waOrder('iPhone 14')">iPhone 14</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('iPhone 14 Plus')">iPhone 14 Plus</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('iPhone 14 Pro')">iPhone 14 Pro</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('iPhone 14 Pro Max')">iPhone 14 Pro Max</div>
+            </div>
+          </div>
+          <div class="model-category">
+            <h4>iPhone 13 Series</h4>
+            <div class="model-list">
+              <div class="model-item" onclick="event.stopPropagation();waOrder('iPhone 13')">iPhone 13</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('iPhone 13 Mini')">iPhone 13 Mini</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('iPhone 13 Pro')">iPhone 13 Pro</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('iPhone 13 Pro Max')">iPhone 13 Pro Max</div>
+            </div>
+          </div>
+          <div class="model-category">
+            <h4>iPhone 12 Series</h4>
+            <div class="model-list">
+              <div class="model-item" onclick="event.stopPropagation();waOrder('iPhone 12')">iPhone 12</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('iPhone 12 Mini')">iPhone 12 Mini</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('iPhone 12 Pro')">iPhone 12 Pro</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('iPhone 12 Pro Max')">iPhone 12 Pro Max</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end;margin-top:8px;">
+        <a href="https://wa.me/2347042776167?text=Hi%20Prime%20Plug!%20Please%20send%20me%20the%20full%20iPhone%20catalog%20with%20prices%20and%20available%20colors." target="_blank" class="wa-btn" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Browse Full iPhone Catalog →
+        </a>
+        <a href="https://wa.me/2347042776167?text=I%20want%20to%20do%20a%20phone%20swap%20for%20an%20iPhone" target="_blank" class="wa-btn wa-btn-outline" onclick="event.stopPropagation()">Swap for iPhone →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ▶ 02 — SAMSUNG PHONES -->
+  <div class="service-row fade-up" id="samsung" onclick="toggleRow(this)">
+    <span class="service-num">02</span>
+    <div>
+      <div class="service-name">Samsung Phones</div>
+      <div class="service-sub">Galaxy S series · A series · Fold & Flip</div>
+    </div>
+    <span class="service-tag">From ₦220k</span>
+    <span class="service-arrow">→</span>
+    <div class="service-details">
+      <div class="showcase-card">
+        <!-- Visual -->
+        <div class="device-visual">
+          <div class="device-img-wrap">
+            <img src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=400&fm=webp&q=85" alt="Samsung Galaxy" loading="lazy" onerror="this.style.display='none'">
+            <div class="device-img-glass"></div>
+          </div>
+          <div class="device-visual-label">Samsung Galaxy</div>
+        </div>
+        <!-- Models -->
+        <div class="model-grid">
+          <div class="model-category">
+            <h4>Galaxy S25 Series</h4>
+            <div class="model-list">
+              <div class="model-item" onclick="event.stopPropagation();waOrder('Samsung Galaxy S25')">Galaxy S25</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('Samsung Galaxy S25+')">Galaxy S25+</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('Samsung Galaxy S25 Ultra')">Galaxy S25 Ultra</div>
+            </div>
+          </div>
+          <div class="model-category">
+            <h4>Galaxy S24 Series</h4>
+            <div class="model-list">
+              <div class="model-item" onclick="event.stopPropagation();waOrder('Samsung Galaxy S24')">Galaxy S24</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('Samsung Galaxy S24+')">Galaxy S24+</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('Samsung Galaxy S24 Ultra')">Galaxy S24 Ultra</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('Samsung Galaxy S24 FE')">Galaxy S24 FE</div>
+            </div>
+          </div>
+          <div class="model-category">
+            <h4>Galaxy S23 Series</h4>
+            <div class="model-list">
+              <div class="model-item" onclick="event.stopPropagation();waOrder('Samsung Galaxy S23')">Galaxy S23</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('Samsung Galaxy S23+')">Galaxy S23+</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('Samsung Galaxy S23 Ultra')">Galaxy S23 Ultra</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('Samsung Galaxy S23 FE')">Galaxy S23 FE</div>
+            </div>
+          </div>
+          <div class="model-category">
+            <h4>Galaxy A Series</h4>
+            <div class="model-list">
+              <div class="model-item" onclick="event.stopPropagation();waOrder('Samsung Galaxy A56')">Galaxy A56</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('Samsung Galaxy A55')">Galaxy A55</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('Samsung Galaxy A35')">Galaxy A35</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('Samsung Galaxy A25')">Galaxy A25</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('Samsung Galaxy A16')">Galaxy A16</div>
+            </div>
+          </div>
+          <div class="model-category">
+            <h4>Galaxy Fold & Flip</h4>
+            <div class="model-list">
+              <div class="model-item" onclick="event.stopPropagation();waOrder('Samsung Galaxy Z Fold 6')">Galaxy Z Fold 6</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('Samsung Galaxy Z Flip 6')">Galaxy Z Flip 6</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('Samsung Galaxy Z Fold 5')">Galaxy Z Fold 5</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('Samsung Galaxy Z Flip 5')">Galaxy Z Flip 5</div>
+            </div>
+          </div>
+          <div class="model-category">
+            <h4>Galaxy M Series</h4>
+            <div class="model-list">
+              <div class="model-item" onclick="event.stopPropagation();waOrder('Samsung Galaxy M55')">Galaxy M55</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('Samsung Galaxy M35')">Galaxy M35</div>
+              <div class="model-item" onclick="event.stopPropagation();waOrder('Samsung Galaxy M15')">Galaxy M15</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end;margin-top:8px;">
+        <a href="https://wa.me/2347042776167?text=Hi%20Prime%20Plug!%20Please%20send%20me%20the%20full%20Samsung%20catalog%20with%20prices%20and%20available%20colors." target="_blank" class="wa-btn" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Browse Full Samsung Catalog →
+        </a>
+        <a href="https://wa.me/2347042776167?text=I%20want%20to%20swap%20my%20phone%20for%20a%20Samsung" target="_blank" class="wa-btn wa-btn-outline" onclick="event.stopPropagation()">Swap for Samsung →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ▶ 03 — LAPTOPS -->
+  <div class="service-row fade-up" id="laptops" onclick="toggleRow(this)">
+    <span class="service-num">03</span>
+    <div>
+      <div class="service-name">Laptop Collection</div>
+      <div class="service-sub">MacBook · Lenovo · Dell · HP — all categories</div>
+    </div>
+    <span class="service-tag">From ₦480k</span>
+    <span class="service-arrow">→</span>
+    <div class="service-details">
+      <div class="laptop-brand-grid" style="margin-top:20px;">
+
+        <!-- MacBook -->
+        <div class="laptop-brand-card fade-up">
+          <div class="device-img-wrap" style="height:140px;">
+            <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500&fm=webp&q=80" alt="MacBook" loading="lazy">
+            <div class="device-img-glass"></div>
+          </div>
+          <div class="lbc-logo">🍎</div>
+          <div class="lbc-brand">Apple MacBook</div>
+          <div class="lbc-models">
+            <div class="lbc-model" onclick="event.stopPropagation();waOrder('MacBook Pro 14 M4')">MacBook Pro 14" M4</div>
+            <div class="lbc-model" onclick="event.stopPropagation();waOrder('MacBook Pro 16 M4')">MacBook Pro 16" M4</div>
+            <div class="lbc-model" onclick="event.stopPropagation();waOrder('MacBook Air 13 M3')">MacBook Air 13" M3</div>
+            <div class="lbc-model" onclick="event.stopPropagation();waOrder('MacBook Air 15 M3')">MacBook Air 15" M3</div>
+            <div class="lbc-model" onclick="event.stopPropagation();waOrder('MacBook Pro M3 Max')">MacBook Pro M3 Max</div>
+          </div>
+          <a href="https://wa.me/2347042776167?text=I%20want%20to%20enquire%20about%20MacBook%20pricing%20and%20availability." target="_blank" class="lbc-cta" onclick="event.stopPropagation()">Browse MacBooks on WhatsApp →</a>
+        </div>
+
+        <!-- Lenovo -->
+        <div class="laptop-brand-card fade-up">
+          <div class="device-img-wrap" style="height:140px;">
+            <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&fm=webp&q=80" alt="Lenovo" loading="lazy">
+            <div class="device-img-glass"></div>
+          </div>
+          <div class="lbc-logo">🔴</div>
+          <div class="lbc-brand">Lenovo</div>
+          <div class="lbc-models">
+            <div class="lbc-model" onclick="event.stopPropagation();waOrder('Lenovo ThinkPad X1 Carbon')">ThinkPad X1 Carbon</div>
+            <div class="lbc-model" onclick="event.stopPropagation();waOrder('Lenovo ThinkPad X1 Yoga')">ThinkPad X1 Yoga</div>
+            <div class="lbc-model" onclick="event.stopPropagation();waOrder('Lenovo IdeaPad Pro 5')">IdeaPad Pro 5</div>
+            <div class="lbc-model" onclick="event.stopPropagation();waOrder('Lenovo Legion 5 Pro')">Legion 5 Pro (Gaming)</div>
+            <div class="lbc-model" onclick="event.stopPropagation();waOrder('Lenovo Yoga 9i')">Yoga 9i 2-in-1</div>
+          </div>
+          <a href="https://wa.me/2347042776167?text=I%20want%20to%20enquire%20about%20Lenovo%20laptop%20pricing%20and%20availability." target="_blank" class="lbc-cta" onclick="event.stopPropagation()">Browse Lenovo on WhatsApp →</a>
+        </div>
+
+        <!-- Dell -->
+        <div class="laptop-brand-card fade-up">
+          <div class="device-img-wrap" style="height:140px;">
+            <img src="https://images.unsplash.com/photo-1588702547919-26089e690ecc?w=500&fm=webp&q=80" alt="Dell" loading="lazy">
+            <div class="device-img-glass"></div>
+          </div>
+          <div class="lbc-logo">💠</div>
+          <div class="lbc-brand">Dell</div>
+          <div class="lbc-models">
+            <div class="lbc-model" onclick="event.stopPropagation();waOrder('Dell XPS 15 OLED')">XPS 15 OLED</div>
+            <div class="lbc-model" onclick="event.stopPropagation();waOrder('Dell XPS 13')">XPS 13</div>
+            <div class="lbc-model" onclick="event.stopPropagation();waOrder('Dell Inspiron 15')">Inspiron 15 5000</div>
+            <div class="lbc-model" onclick="event.stopPropagation();waOrder('Dell Latitude 7450')">Latitude 7450 Business</div>
+            <div class="lbc-model" onclick="event.stopPropagation();waOrder('Dell Alienware m18')">Alienware m18 (Gaming)</div>
+          </div>
+          <a href="https://wa.me/2347042776167?text=I%20want%20to%20enquire%20about%20Dell%20laptop%20pricing%20and%20availability." target="_blank" class="lbc-cta" onclick="event.stopPropagation()">Browse Dell on WhatsApp →</a>
+        </div>
+
+        <!-- HP -->
+        <div class="laptop-brand-card fade-up">
+          <div class="device-img-wrap" style="height:140px;">
+            <img src="https://images.unsplash.com/photo-1544731612-de7f96afe55f?w=500&fm=webp&q=80" alt="HP" loading="lazy">
+            <div class="device-img-glass"></div>
+          </div>
+          <div class="lbc-logo">🔵</div>
+          <div class="lbc-brand">HP</div>
+          <div class="lbc-models">
+            <div class="lbc-model" onclick="event.stopPropagation();waOrder('HP Spectre x360 14')">Spectre x360 14</div>
+            <div class="lbc-model" onclick="event.stopPropagation();waOrder('HP Envy x360')">Envy x360 2-in-1</div>
+            <div class="lbc-model" onclick="event.stopPropagation();waOrder('HP EliteBook 840')">EliteBook 840 G11</div>
+            <div class="lbc-model" onclick="event.stopPropagation();waOrder('HP Pavilion 15')">Pavilion 15 (Budget)</div>
+            <div class="lbc-model" onclick="event.stopPropagation();waOrder('HP OMEN 16')">OMEN 16 (Gaming)</div>
+          </div>
+          <a href="https://wa.me/2347042776167?text=I%20want%20to%20enquire%20about%20HP%20laptop%20pricing%20and%20availability." target="_blank" class="lbc-cta" onclick="event.stopPropagation()">Browse HP on WhatsApp →</a>
+        </div>
+
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end;margin-top:16px;">
+        <a href="https://wa.me/2347042776167?text=Hi%20Prime%20Plug!%20Please%20send%20me%20your%20full%20laptop%20catalog%20with%20specs%20and%20prices." target="_blank" class="wa-btn" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Full Laptop Catalog on WhatsApp →
+        </a>
+        <a href="https://wa.me/2347042776167?text=I%20want%20to%20do%20a%20laptop%20swap" target="_blank" class="wa-btn wa-btn-outline" onclick="event.stopPropagation()">Swap for Laptop →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PHONE SWAP SECTION
+     ══════════════════════════════════════════ -->
+<section class="section-pad" id="phone-swap" style="background:linear-gradient(180deg,var(--bg) 0%,rgba(10,8,28,.98) 100%);">
+  <div class="section-header">
+    <div><div class="section-title">📱 Phone <span>Swap</span></div></div>
+    <div class="section-hint">Trade your current phone · Get the upgrade you deserve</div>
+  </div>
+  <div class="swap-grid">
+    <!-- CARD A: What you bring -->
+    <div class="swap-card fade-up">
+      <div class="swap-icon">📲</div>
+      <div class="swap-title">Your Current Phone</div>
+      <div class="swap-sub">We accept iPhones and Samsung phones in any condition — working, cracked screen, minor faults. Get instant valuation on WhatsApp.</div>
+      <ul class="swap-steps">
+        <li><span class="swap-step-n">1</span>Send us photos of your phone (front, back, sides)</li>
+        <li><span class="swap-step-n">2</span>We assess condition & IMEI — get instant quote in minutes</li>
+        <li><span class="swap-step-n">3</span>Agree on swap value — we deduct from your new device price</li>
+        <li><span class="swap-step-n">4</span>Pay the difference & receive your new phone</li>
+      </ul>
+      <div class="swap-chips">
+        <div class="swap-chip" onclick="waSwap('swap my iPhone for a new iPhone')">📱 iPhone → iPhone</div>
+        <div class="swap-chip" onclick="waSwap('swap my iPhone for a Samsung')">📱 iPhone → Samsung</div>
+        <div class="swap-chip" onclick="waSwap('swap my Samsung for a new Samsung')">📱 Samsung → Samsung</div>
+        <div class="swap-chip" onclick="waSwap('swap my Samsung for an iPhone')">📱 Samsung → iPhone</div>
+      </div>
+      <a href="https://wa.me/2347042776167?text=Hi%20Prime%20Plug!%20I%20want%20to%20start%20a%20phone%20swap.%20Here%20are%20details%20of%20my%20current%20phone%3A%0A%0APhone%20model%3A%0AStorage%3A%0ACondition%3A%0ADesired%20new%20phone%3A" target="_blank" class="wa-btn" style="margin-top:4px;">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Start Phone Swap on WhatsApp →
+      </a>
+    </div>
+    <!-- CARD B: What you get -->
+    <div class="swap-card fade-up">
+      <div class="swap-icon">✨</div>
+      <div class="swap-title">What You Get</div>
+      <div class="swap-sub">Walk away with a brand new flagship. We offer competitive swap rates — better than reselling yourself. Get more value, zero stress.</div>
+      <ul class="swap-steps">
+        <li><span class="swap-step-n">✓</span>Top trade-in value — we beat competitors</li>
+        <li><span class="swap-step-n">✓</span>New phone ready same day (Abuja) or shipped nationwide</li>
+        <li><span class="swap-step-n">✓</span>All phones verified, sealed box, UK-used, or new</li>
+        <li><span class="swap-step-n">✓</span>7-day exchange guarantee on new devices</li>
+      </ul>
+      <div style="margin:16px 0;padding:18px;background:rgba(168,85,247,.07);border:1px solid var(--border);border-radius:18px;">
+        <div style="font-family:'Space Mono',monospace;font-size:.62rem;color:var(--text3);margin-bottom:10px;letter-spacing:2px;">TYPICAL SWAP VALUES</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;justify-content:space-between;font-size:.82rem;"><span>iPhone 13 Pro Max → iPhone 15 Pro</span><span style="color:var(--purple2);font-weight:700;">+Top-up</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:.82rem;"><span>Samsung S23 Ultra → S25 Ultra</span><span style="color:var(--purple2);font-weight:700;">+Top-up</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:.82rem;"><span>iPhone 12 → Samsung S24</span><span style="color:var(--purple2);font-weight:700;">+Top-up</span></div>
+        </div>
+      </div>
+      <a href="https://wa.me/2347042776167?text=Hi%20Prime%20Plug!%20I%20want%20to%20know%20how%20much%20my%20phone%20is%20worth%20for%20a%20swap." target="_blank" class="wa-btn wa-btn-outline">
+        💬 Get My Phone's Swap Value →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     LAPTOP SWAP SECTION
+     ══════════════════════════════════════════ -->
+<section class="section-pad" id="laptop-swap" style="border-top:1px solid var(--border);">
+  <div class="section-header">
+    <div><div class="section-title">💻 Laptop <span>Swap</span></div></div>
+    <div class="section-hint">Upgrade your machine · Trade any brand</div>
+  </div>
+  <div class="swap-grid">
+    <!-- CARD A: Process -->
+    <div class="swap-card fade-up">
+      <div class="swap-icon">💾</div>
+      <div class="swap-title">Trade Your Laptop</div>
+      <div class="swap-sub">MacBook, Dell, HP, Lenovo — we take them all. Working or with issues. Get a fast valuation and offset the price of your new machine.</div>
+      <ul class="swap-steps">
+        <li><span class="swap-step-n">1</span>Send photos + specs (brand, model, RAM, storage, condition)</li>
+        <li><span class="swap-step-n">2</span>Receive valuation quote within minutes on WhatsApp</li>
+        <li><span class="swap-step-n">3</span>Select your new laptop from our catalog</li>
+        <li><span class="swap-step-n">4</span>Pay the price difference — we handle the rest</li>
+      </ul>
+      <div class="swap-chips">
+        <div class="swap-chip" onclick="waSwap('swap my MacBook for a new MacBook')">🍎 MacBook → MacBook</div>
+        <div class="swap-chip" onclick="waSwap('swap my Windows laptop for a MacBook')">💻 Windows → MacBook</div>
+        <div class="swap-chip" onclick="waSwap('swap my MacBook for a Windows laptop')">🍎 MacBook → Windows</div>
+        <div class="swap-chip" onclick="waSwap('swap my old laptop for a Dell XPS')">💠 Any → Dell XPS</div>
+        <div class="swap-chip" onclick="waSwap('swap my old laptop for an HP Spectre')">🔵 Any → HP Spectre</div>
+        <div class="swap-chip" onclick="waSwap('swap my old laptop for a Lenovo ThinkPad')">🔴 Any → ThinkPad</div>
+      </div>
+      <a href="https://wa.me/2347042776167?text=Hi%20Prime%20Plug!%20I%20want%20to%20start%20a%20laptop%20swap.%20Details%3A%0A%0ABrand%20%26%20Model%3A%0ARAM%3A%0AStorage%3A%0ACondition%3A%0ADesired%20new%20laptop%3A" target="_blank" class="wa-btn" style="margin-top:4px;">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Start Laptop Swap on WhatsApp →
+      </a>
+    </div>
+    <!-- CARD B: Why swap with us -->
+    <div class="swap-card fade-up">
+      <div class="swap-icon">🏆</div>
+      <div class="swap-title">Why Swap With Us?</div>
+      <div class="swap-sub">We've processed hundreds of device swaps across Abuja and Nigeria. Fast, honest valuation — no lowballing, no stress.</div>
+      <ul class="swap-steps">
+        <li><span class="swap-step-n">✓</span>MacBook Pro/Air — highest buyback rates in Abuja</li>
+        <li><span class="swap-step-n">✓</span>Gaming laptops (Legion, OMEN, Alienware) accepted</li>
+        <li><span class="swap-step-n">✓</span>Business laptops (ThinkPad, EliteBook) accepted</li>
+        <li><span class="swap-step-n">✓</span>Faults assessed fairly — no hidden deductions</li>
+        <li><span class="swap-step-n">✓</span>New machine ready same day or next day (Abuja)</li>
+      </ul>
+      <div style="margin:16px 0;padding:18px;background:rgba(168,85,247,.07);border:1px solid var(--border);border-radius:18px;">
+        <div style="font-family:'Space Mono',monospace;font-size:.62rem;color:var(--text3);margin-bottom:10px;letter-spacing:2px;">POPULAR LAPTOP SWAPS</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;justify-content:space-between;font-size:.82rem;"><span>MacBook Air M1 → MacBook Pro M4</span><span style="color:var(--purple2);font-weight:700;">+Top-up</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:.82rem;"><span>Dell XPS 13 → MacBook Air M3</span><span style="color:var(--purple2);font-weight:700;">+Top-up</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:.82rem;"><span>HP Envy → Lenovo ThinkPad X1</span><span style="color:var(--purple2);font-weight:700;">+Top-up</span></div>
+        </div>
+      </div>
+      <a href="https://wa.me/2347042776167?text=Hi%20Prime%20Plug!%20I%20want%20to%20know%20how%20much%20my%20laptop%20is%20worth%20for%20a%20swap." target="_blank" class="wa-btn wa-btn-outline">
+        💬 Get Laptop Swap Valuation →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     WHY PRIME PLUG
+     ══════════════════════════════════════════ -->
+<section class="section-pad" id="about" style="background:rgba(8,6,20,.6);">
+  <div class="section-header">
+    <div><div class="section-title">Why <span>Prime Plug?</span></div></div>
+  </div>
+  <div class="about-grid">
+    <div>
+      <div class="about-card fade-up"><div class="about-icon">⚡</div><div class="about-stat">Same-Day</div><p>Abuja same-day delivery. Nationwide 24–48 hr express shipping to your door or nearest park.</p></div>
+      <div class="about-card fade-up" style="margin-top:16px;"><div class="about-icon">🔒</div><div class="about-stat">Verified Stock</div><p>Every phone and laptop is checked, tested, and verified before it leaves our hands. Sealed box or certified pre-owned.</p></div>
+    </div>
+    <div>
+      <div class="about-card fade-up"><div class="about-icon">🏆</div><div class="about-stat">5,000+ Devices</div><p>Trusted by tech buyers across Nigeria. 4.9★ rated for honest deals and quick service.</p></div>
+      <div id="aboutMore" class="about-cards-hidden">
+        <div class="about-card fade-up" style="margin-top:16px;"><div class="about-icon">♻️</div><div class="about-stat">Best Swap Rates</div><p>We price-match and beat most offers. Your old device is worth more with us than anywhere else in Abuja.</p></div>
+        <div class="about-card fade-up" style="margin-top:16px;"><div class="about-icon">💎</div><div class="about-stat">7-Day Returns</div><p>No-questions-asked return policy on all devices purchased from Prime Plug.</p></div>
+      </div>
+      <button class="about-read-more" id="moreBtn" onclick="toggleAbout()">Read full story ↓</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     CONTACT
+     ══════════════════════════════════════════ -->
+<section class="section-pad" id="contact">
+  <div class="section-header"><div class="section-title">Get <span>upgraded</span> today</div></div>
+  <div class="contact-grid">
+    <div>
+      <div class="form-field"><label>Full name</label><input type="text" id="fullname" placeholder="Your name"></div>
+      <div class="form-field"><label>Phone / WhatsApp</label><input type="tel" id="phone" placeholder="+234 ..."></div>
+      <div class="form-field"><label>I'm interested in</label>
+        <select id="interest">
+          <option>iPhone (any model)</option>
+          <option>Samsung Galaxy</option>
+          <option>MacBook</option>
+          <option>Dell Laptop</option>
+          <option>HP Laptop</option>
+          <option>Lenovo Laptop</option>
+          <option>Phone Swap</option>
+          <option>Laptop Swap</option>
+        </select>
+      </div>
+      <div class="form-field"><label>Message</label><textarea rows="3" id="msg" placeholder="Tell us what you need..."></textarea></div>
+      <button class="form-submit" onclick="handleContact()">Send Message →</button>
+      <div id="formSuccess" class="success-msg">✓ Received! We'll reply within 24h. <br><a href="https://wa.me/2347042776167" style="color:var(--purple2)">Chat on WhatsApp for instant reply →</a></div>
+    </div>
+    <div>
+      <div class="info-block"><div class="label">📧 Email</div><a href="mailto:SAMSONOGWU60@gmail.com">SAMSONOGWU60@gmail.com</a></div>
+      <div class="info-block"><div class="label">📱 TikTok</div><a href="https://tiktok.com/@SAMY32398" target="_blank" style="color:#f59e0b;">@SAMY32398</a></div>
+      <div class="info-block"><div class="label">💬 WhatsApp</div><a href="https://wa.me/2347042776167" target="_blank">+234 704 277 6167</a></div>
+      <div style="margin-top:24px;border-radius:20px;overflow:hidden;">
+        <iframe width="100%" height="150" style="filter:grayscale(.2) brightness(.7);" src="https://maps.google.com/maps?q=Gwarinpa,Abuja&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" loading="lazy"></iframe>
+        <div style="background:#10101e;padding:12px;font-size:.78rem;color:var(--text2);">📍 Prime Plug Hub · Gwarinpa, Abuja · Nationwide delivery</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="padding:0 5% 40px;">
+  <div class="footer-split">
+    <div class="footer-email-block">
+      <svg width="26" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+      <div><div style="font-size:10px;letter-spacing:2px;margin-bottom:4px;">SEND US AN EMAIL</div><a href="mailto:SAMSONOGWU60@gmail.com" style="font-weight:800;font-size:1.1rem;color:#050512;">SAMSONOGWU60@gmail.com</a></div>
+    </div>
+    <div class="footer-tiktok-block">
+      <svg width="24" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 15.68a6.34 6.34 0 006.32 6.32 6.32 6.32 0 006.32-6.32V10.22a8.33 8.33 0 003.95 1v-3.46a4.87 4.87 0 01-2-1.07z"/></svg>
+      <div><div style="font-size:10px;margin-bottom:4px;">FOLLOW FOR DEALS</div><a href="https://tiktok.com/@SAMY32398" style="font-weight:800;color:#050512;">@SAMY32398</a></div>
+    </div>
+  </div>
+  <div class="footer-copy">© 2025 Prime Plug — iPhone · Samsung · MacBook · Dell · HP · Lenovo · Phone Swap · Laptop Swap · Abuja Nigeria</div>
+</footer>
+
+<script>
+// ===== CURSOR =====
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);}animRing();
+document.querySelectorAll('a,button,.service-row,.model-item,.swap-chip,.laptop-brand-card,.lbc-cta').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px';ring.style.width='54px';ring.style.height='54px';ring.style.borderColor='#eab308';});
+  el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';ring.style.width='38px';ring.style.height='38px';ring.style.borderColor='#c084fc';});
+});
+
+// ===== HAMBURGER =====
+const hamBtn=document.getElementById('hamBtn'),mobNav=document.getElementById('mobNav');
+hamBtn.addEventListener('click',()=>{
+  hamBtn.classList.toggle('open');mobNav.classList.toggle('open');
+  const sp=hamBtn.querySelectorAll('span');
+  if(hamBtn.classList.contains('open')){sp[0].style.transform='rotate(45deg) translate(5px,6px)';sp[1].style.opacity='0';sp[2].style.transform='rotate(-45deg) translate(5px,-6px)';}
+  else{sp[0].style.transform='none';sp[1].style.opacity='1';sp[2].style.transform='none';}
+});
+function closeMob(){
+  mobNav.classList.remove('open');
+  hamBtn.classList.remove('open');
+  const sp=hamBtn.querySelectorAll('span');
+  sp[0].style.transform='none';
+  sp[1].style.opacity='1';
+  sp[2].style.transform='none';
+}
+
+// ===== NAV SCROLL =====
+window.addEventListener('scroll',()=>{document.querySelector('.navbar').style.boxShadow=scrollY>60?'0 4px 40px rgba(0,0,0,.7)':'none';});
+
+// ===== EXPANDABLE SERVICE ROWS =====
+function toggleRow(row){
+  // Prevent event from bubbling up if called from a child element
+  if(event && event.stopPropagation) event.stopPropagation();
+  const wasOpen=row.classList.contains('open');
+  // Close all other open rows
+  document.querySelectorAll('.service-row.open').forEach(r=>{
+    if(r !== row) r.classList.remove('open');
+  });
+  // Toggle the clicked row
+  if(!wasOpen){
+    row.classList.add('open');
+    // Smooth scroll to the opened section after a tiny delay
+    setTimeout(()=>{
+        row.scrollIntoView({behavior:'smooth',block:'start'});
+    }, 100);
+  } else {
+    // If it was open, close it. But we might want to keep it open? 
+    // For now, we'll just leave it open. But this handles the case.
+    // row.classList.remove('open'); 
+    // Uncomment above if you want clicking an open row to close it.
+  }
+}
+
+// ===== WHATSAPP ORDER =====
+function waOrder(device){
+  const msg=encodeURIComponent(
+    'Hi Prime Plug! I want to buy/enquire about:\n\n' +
+    'Device: ' + device + '\n' +
+    'Storage (if applicable): \nColor preference: \nCondition: (New / UK Used)\n\n' +
+    'Please send price and availability. Thank you!'
+  );
+  window.open('https://wa.me/2347042776167?text='+msg,'_blank');
+}
+
+// ===== WHATSAPP SWAP =====
+function waSwap(swapType){
+  const msg=encodeURIComponent(
+    'Hi Prime Plug! I want to ' + swapType + '.\n\n' +
+    'Current device details:\nModel: \nStorage: \nCondition: \n\nTarget device: \n\nPlease send swap value and next steps. Thank you!'
+  );
+  window.open('https://wa.me/2347042776167?text='+msg,'_blank');
+}
+
+// ===== ABOUT TOGGLE =====
+function toggleAbout(){
+  const el=document.getElementById('aboutMore'),btn=document.getElementById('moreBtn');
+  if(!el || !btn) return;
+  el.classList.toggle('expanded');
+  btn.textContent = el.classList.contains('expanded') ? 'Show less ↑' : 'Read full story ↓';
+}
+
+// ===== CONTACT FORM =====
+function handleContact(){
+  const name=document.getElementById('fullname').value.trim();
+  const phone=document.getElementById('phone').value.trim();
+  if(!name||!phone){alert('Please enter your name and phone number.');return;}
+  const interest=document.getElementById('interest').value;
+  const msg=document.getElementById('msg').value.trim();
+  const wa=encodeURIComponent(
+    'Hi Prime Plug! Inquiry from website:\n\nName: ' + name + '\nPhone: ' + phone + '\nInterested in: ' + interest + '\nMessage: ' + (msg||'(none)')
+  );
+  window.open('https://wa.me/2347042776167?text='+wa,'_blank');
+  const successDiv = document.getElementById('formSuccess');
+  if(successDiv) {
+    successDiv.style.display='block';
+    setTimeout(()=>{successDiv.style.display='none';},6000);
+  }
+}
+
+// ===== INTERSECTION OBSERVER — lazy reveal =====
+// Wait for DOM to be fully loaded before running the observer
+document.addEventListener('DOMContentLoaded', () => {
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('reveal');obs.unobserve(e.target);}});
+  },{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+});
+</script>
+</body>
+</html>
